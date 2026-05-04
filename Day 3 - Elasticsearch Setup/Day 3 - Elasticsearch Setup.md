@@ -33,21 +33,21 @@ Provider: [https://www.vultr.com](https://www.vultr.com)
 - Server Hostname: MyDFIR-ELK
 - Instance Connectivity: Public IPv4
 
-After deployment, Vultr provisions the instance with a public IP (for example, 167.179.93.29).
+After deployment, Vultr provisions the instance with a public IP (for example, PUBLIC_IP).
 
 1. Access the instance via SSH
     
     From your local machine (Windows example):
     
     ```bash
-    C:\Users\SOC> ssh root@167.179.93.29
+    C:\Users\SOC> ssh root@PUBLIC_IP
     ```
     
 
 On first connect, you will see the host key prompt:
 
 ```bash
-The authenticity of host '167.179.93.29 (167.179.93.29)' can't be established.
+The authenticity of host 'PUBLIC_IP (PUBLIC_IP)' can't be established.
 ED25519 key fingerprint is ...
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 ```
@@ -94,7 +94,7 @@ root@MyDFIR-ELK:/etc/elasticsearch# nano elasticsearch.yml
 To allow your local laptop (on the VPC subnet) to communicate with Elasticsearch, add:
 
 ```bash
-network.host: 167.179.93.29
+network.host: PUBLIC_IP
 ```
 
 This binds Elasticsearch to the instance’s public IP so Kibana/Beats can reach it.
@@ -159,4 +159,4 @@ Example expected output (shortened):
         CPU: 54.215s
 ```
 
-If the service is active (running), Elasticsearch is up and listening on http://167.179.93.29:9200.
+If the service is active (running), Elasticsearch is up and listening on http://PUBLIC_IP:9200.
