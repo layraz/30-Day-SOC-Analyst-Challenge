@@ -1,5 +1,15 @@
 # Day 4: Kibana Setup
 
+## Objective
+
+The goal for today is to install and configure **Kibana** as the graphical user interface (GUI) for the ELK stack. This involves establishing a secure connection between Kibana and the Elasticsearch instance we deployed on Day 3.
+
+**Technical Implementation**
+
+- **Installation:** Setting up the Kibana service on the same Vultr instance (or a linked one) to provide a web-based dashboard.
+- **Security Integration:** Using the **enrollment tokens** and credentials generated during the Elasticsearch setup to authenticate and link the two services securely.
+- **Configuration:** Modifying the **`kibana.yml`** file to allow public access (secured by firewall rules) so the analyst can log into the SOC console from a browser.
+
 ## 1. Download and install Kibana
 
 Download Kibana 9.3.4 `.deb` package:
@@ -25,8 +35,12 @@ sudo nano /etc/kibana/kibana.yml
 ```
 
 ```bash
+# Kibana is served by a back end server. This setting specifies the port to use.
 server.port: 5601
-server.host: "<VULTR_PUBLIC_IP>"
+# Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
+# The default is 'localhost', which usually means remote machines will not be able to connect.
+# To allow connections from remote users, set this parameter to a non-loopback address.
+server.host: "<VULTR_ELK_PUBLIC_IP>"
 ```
 
 ---
@@ -77,9 +91,9 @@ Save the generated token for the Kibana setup screen.
 
 ## 5. Open Kibana UI in browser
 
-From your **laptop**, open:
+From your **workstation**, open:
 
-`http://<VULTR_PUBLIC_IP>:5601`
+`http://<VULTR_ELK_PUBLIC_IP>:5601`
 
 You will see the **Kibana setup / enrollment** screen.
 

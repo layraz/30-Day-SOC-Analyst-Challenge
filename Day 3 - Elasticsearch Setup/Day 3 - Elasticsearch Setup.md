@@ -94,7 +94,7 @@ root@MyDFIR-ELK:/etc/elasticsearch# nano elasticsearch.yml
 To allow your local laptop (on the VPC subnet) to communicate with Elasticsearch, add:
 
 ```bash
-network.host: PUBLIC_IP
+network.host: ELK_PUBLIC_IP
 ```
 
 This binds Elasticsearch to the instance’s public IP so Kibana/Beats can reach it.
@@ -121,14 +121,14 @@ To prevent public internet access to MyDFIR-ELK while still allowing access from
 - Action: Allow
 - Protocol: TCP
 - Port: 9200
-- Source: Custom – 172.31.0.0/24
+- Source: Custom – <YOUR_PUBLIC_IP>
 
 Then apply the firewall group to the instance:
 
 - Go to Compute → MyDFIR-ELK → Settings → Firewall.
 - Select the firewall group soc-internal-only.
 
-Now only machines inside the VPC network (172.31.0.0/24) can reach Elasticsearch on port 9200.
+Now only your machine can reach Elasticsearch on port 9200.
 
 ## Configure Elasticsearch as a systemd service
 
@@ -159,4 +159,3 @@ Example expected output (shortened):
         CPU: 54.215s
 ```
 
-If the service is active (running), Elasticsearch is up and listening on http://PUBLIC_IP:9200.
